@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package optodemo;
+
+// -----------------Cart service-----------------
+
+service HelloService {
+    rpc GetGreeting(GreetingRequest) returns (Greeting) {}
+}
+
+message GreetingRequest {
+    string name = 1;
+}
+
+message Greeting {
+    string message = 1;
+}

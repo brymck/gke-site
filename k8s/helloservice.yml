@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloservice
+spec:
+  template:
+    metadata:
+      labels:
+        app: helloservice
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: server
+        image: helloservice
+        ports:
+        - containerPort: 3550
+        readinessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:3550"]
+        livenessProbe:
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:3550"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloservice
+spec:
+  type: ClusterIP
+  selector:
+    app: helloservice
+  ports:
+  - name: grpc
+    port: 3550
+    targetPort: 3550
