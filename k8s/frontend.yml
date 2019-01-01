@@ -9,36 +9,36 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: server
-        image: frontend
-        ports:
-        - containerPort: 8080
-        readinessProbe:
-          initialDelaySeconds: 10
-          httpGet:
-            path: "/_healthz"
-            port: 8080
-            httpHeaders:
-            - name: "Cookie"
-              value: "shop_session-id=x-readiness-probe"
-        livenessProbe:
-          initialDelaySeconds: 10
-          httpGet:
-            path: "/_healthz"
-            port: 8080
-            httpHeaders:
-            - name: "Cookie"
-              value: "shop_session-id=x-liveness-probe"
-        env:
-        - name: HELLO_SERVICE_ADDR
-          value: "helloservice:3550"
-        resources:
-          requests:
-            cpu: 100m
-            memory: 64Mi
-          limits:
-            cpu: 200m
-            memory: 128Mi
+        - name: server
+          image: frontend
+          ports:
+            - containerPort: 8080
+          # readinessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: "/_healthz"
+          #     port: 8080
+          #     httpHeaders:
+          #       - name: "Cookie"
+          #         value: "shop_session-id=x-readiness-probe"
+          # livenessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: "/_healthz"
+          #     port: 8080
+          #     httpHeaders:
+          #       - name: "Cookie"
+          #         value: "shop_session-id=x-liveness-probe"
+          env:
+            - name: HELLO_SERVICE_ADDR
+              value: "helloservice:3550"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -49,9 +49,9 @@ spec:
   selector:
     app: frontend
   ports:
-  - name: http
-    port: 80
-    targetPort: 8080
+    - name: http
+      port: 80
+      targetPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -62,6 +62,6 @@ spec:
   selector:
     app: frontend
   ports:
-  - name: http
-    port: 80
-    targetPort: 8080
+    - name: http
+      port: 80
+      targetPort: 8080
