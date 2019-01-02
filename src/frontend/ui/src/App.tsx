@@ -20,7 +20,7 @@ export default class App extends React.Component<Props, State> {
 
   handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
-    this.setState({ value })
+    this.setState({ value });
     axios.get(`/hello/${value}`)
         .then(res => {
           const greeting = res.data;
@@ -35,7 +35,12 @@ export default class App extends React.Component<Props, State> {
           <p>
             Lorem ipsum.
           </p>
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input
+            autoFocus={true}
+            onChange={this.handleChange}
+            type="text"
+            value={this.state.value}
+          />
           <span>{this.state.greeting}</span>
         </header>
       </div>
