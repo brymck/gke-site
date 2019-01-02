@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: '' };
+interface Props {
+}
 
+interface State {
+  value: string
+}
+
+class App extends React.Component<Props, State> {
+  state: State = { value: '' };
+
+  constructor(props: Props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     console.log(value);
     this.setState({ value: event.target.value })
   }
-
 
   render() {
     return (
