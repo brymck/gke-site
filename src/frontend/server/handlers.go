@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -9,9 +10,11 @@ import (
 
 func (fe *frontendServer) helloHandler(w http.ResponseWriter, r *http.Request) {
 	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
-	log.Debug("asking hello")
+	vars := mux.Vars(r)
+	name := vars["name"]
+	log.Debug("asking for a greeting to " + name)
 
-	message, err := fe.sayHello(r.Context(), "World")
+	message, err := fe.sayHello(r.Context(), name)
 	if err != nil {
 		renderHTTPError(log, r, w, errors.Wrap(err, "failed to say hello"), http.StatusInternalServerError)
 		return

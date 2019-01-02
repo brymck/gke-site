@@ -61,7 +61,7 @@ func main() {
 	mustConnGRPC(ctx, &svc.helloSvcConn, svc.helloSvcAddr)
 
 	r := mux.NewRouter()
-	r.HandleFunc("/hello/{id}", svc.helloHandler).Methods("GET")
+	r.HandleFunc("/hello/{name}", svc.helloHandler).Methods("GET")
 	r.HandleFunc("/robots.txt", func(w http.ResponseWriter, _ *http.Request) {
 		fmt.Fprint(w, "User-agent: *\nDisallow: /")
 	})

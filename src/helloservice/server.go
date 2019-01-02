@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc/reflection"
 	"net"
 	"os"
+	"strings"
 	"time"
 
 	pb "github.com/brymck/opto-demo/src/helloservice/genproto"
@@ -37,7 +38,8 @@ func init() {
 type greeter struct{}
 
 func (p *greeter) GetGreeting(ctx context.Context, req *pb.GreetingRequest) (*pb.Greeting, error) {
-	return &pb.Greeting{Message: "Hello, world!"}, nil
+	name := req.Name
+	return &pb.Greeting{Message: "Hello, " + strings.Title(name) + "!"}, nil
 }
 
 func main() {
