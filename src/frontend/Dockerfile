@@ -13,10 +13,10 @@ RUN go install .
 
 FROM node:8-alpine as uibuilder
 WORKDIR /usr/src/app
-COPY ui/package.json ./
-RUN npm install
+COPY ui/package.json ui/yarn.lock ./
+RUN yarn install
 COPY ui .
-RUN npm run-script build
+RUN yarn build
 
 FROM alpine:3.8 as release
 RUN apk add --no-cache ca-certificates \
