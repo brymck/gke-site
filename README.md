@@ -22,13 +22,13 @@ Firstly, [install Istio][install-istio], in particular following the steps witho
 Once that's complete, run:
 
 ```sh
-make apply-istio
+make istio
 ```
 
 To view the Grafana dashboard, run
 
 ```sh
-make forward-grafana
+make grafana
 ```
 
 and visit [http://localhost:3000/](http://localhost:3000/).
@@ -36,7 +36,7 @@ and visit [http://localhost:3000/](http://localhost:3000/).
 To remove usage of Istio, run
 
 ```sh
-make delete-istio
+make istio-delete
 ```
 
 Development
