@@ -23,8 +23,21 @@ Firstly, [install Istio][install-istio], in particular following the steps witho
 Once that's complete, run:
 
 ```sh
-kubectl label namespace default istio-injection=enabled
-kubectl apply -f ./istio
+make apply-istio
+```
+
+To view the Grafana dashboard, run
+
+```sh
+make forward-grafana
+```
+
+and visit [http://localhost:3000/](http://localhost:3000/).
+
+To remove usage of Istio, run
+
+```sh
+make delete-istio
 ```
 
 [install-istio]: https://istio.io/docs/setup/kubernetes/quick-start/#installation-steps
