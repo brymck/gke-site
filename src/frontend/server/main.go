@@ -63,7 +63,10 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/hello/{name}", svc.helloHandler).Methods("GET")
 	r.HandleFunc("/robots.txt", func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, "User-agent: *\nDisallow: /")
+		_, err := fmt.Fprint(w, "User-agent: *\nDisallow: /")
+		if err != nil {
+			log.Error(err)
+		}
 	})
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./ui/")))
 

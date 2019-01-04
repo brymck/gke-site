@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	pb "github.com/brymck/opto-demo/src/helloservice/genproto"
+	pb "github.com/brymck/gke-site/src/helloservice/genproto"
 
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"

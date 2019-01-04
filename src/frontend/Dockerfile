@@ -2,7 +2,7 @@ FROM golang:1.11.2-alpine3.8 as serverbuilder
 RUN apk add --no-cache ca-certificates git && \
       wget -qO/go/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 && \
       chmod +x /go/bin/dep
-ENV PROJECT github.com/brymck/opto-demo/src/frontend/server
+ENV PROJECT github.com/brymck/gke-site/src/frontend/server
 WORKDIR /go/src/$PROJECT
 
 # restore dependencies
