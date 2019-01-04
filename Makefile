@@ -13,4 +13,8 @@ delete-istio:
 	kubectl label namespace default istio-injection-
 	kubectl delete -f ./istio
 
-.PHONY: forward-grafana apply-istio delete-istio
+proto:
+	cd src/frontend/server && ./genproto.sh
+	cd src/helloservice && ./genproto.sh
+
+.PHONY: forward-grafana apply-istio delete-istio proto
