@@ -24,7 +24,7 @@ Once that's complete, run:
 
 ```sh
 kubectl label namespace default istio-injection=enabled
-kubectl apply -f ./istio-manifests
+kubectl apply -f ./istio
 ```
 
 [install-istio]: https://istio.io/docs/setup/kubernetes/quick-start/#installation-steps
