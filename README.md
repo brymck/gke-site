@@ -25,7 +25,7 @@ Firstly, [install Istio][install-istio], in particular following the steps witho
 Once that's complete, run:
 
 ```sh
-make istio
+make apply-istio
 ```
 
 Make commands
