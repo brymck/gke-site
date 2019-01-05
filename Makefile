@@ -18,7 +18,7 @@ delete-istio:
 
 show-grafana:
 	$(eval POD_NAME = $(shell kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}'))
-	(sleep 1s; open 'http://localhost:3000/') &
+	(sleep 1s; open 'http://localhost:3000/dashboard/db/istio-mesh-dashboard') &
 	kubectl -n istio-system port-forward $(POD_NAME) 3000:3000
 
 show-dashboard:
