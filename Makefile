@@ -1,6 +1,6 @@
 all: init dev
 
-init: postgresql
+init: install-postgresql
 
 dev:
 	skaffold dev
