@@ -7,13 +7,16 @@ Prerequisites
 -------------
 
 * Docker
+* [Helm][install-helm]
 * Skaffold (`brew install skaffold`)
 
 Usage
 -----
 
 ```sh
-skaffold dev
+go get github.com/brymck/gke-site
+cd $GOPATH/src/github.com/brymck/gke-site
+make
 ```
 
 ### With Istio
@@ -25,19 +28,18 @@ Once that's complete, run:
 make istio
 ```
 
-To view the Grafana dashboard, run
+Make commands
+-------------
 
-```sh
-make grafana
-```
-
-and visit [http://localhost:3000/](http://localhost:3000/).
-
-To remove usage of Istio, run
-
-```sh
-make istio-delete
-```
+* `make` - run `init` then `dev`
+* `make init` - run any required one-time commands
+* `make dev` - run via Skaffold
+* `make install-postgresql` - install PostgreSQL via Helm
+* `make apply-istio` - apply Istio manifests (requires Istio)
+* `make delete-istio` - delete Istio manifests
+* `make show-grafana` - open the Grafana dashboard in your browser (requires Istio)
+* `make show-dashboard` - open the Kubernetes dashboard in your browser
+* `make proto` - generate language-specific Protobuf files
 
 Development
 -----------
@@ -48,4 +50,5 @@ If you make any changes to Protobuf files, ensure downstream libraries are kept 
 make proto
 ```
 
+[install-helm]: https://docs.helm.sh/using_helm/#installing-helm
 [install-istio]: https://istio.io/docs/setup/kubernetes/quick-start/#installation-steps
