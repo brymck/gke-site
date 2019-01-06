@@ -1,7 +1,7 @@
 FROM golang:1.11.2-alpine3.8 as builder
-RUN apk add --no-cache ca-certificates git && \
-    wget -qO/go/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 && \
-    chmod +x /go/bin/dep
+RUN apk add --no-cache ca-certificates git curl
+RUN curl -L -s -o /go/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64
+RUN chmod +x /go/bin/dep
 
 ENV PROJECT github.com/brymck/gke-site/src/helloservice
 WORKDIR /go/src/$PROJECT

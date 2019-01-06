@@ -14,9 +14,16 @@ Usage
 -----
 
 ```sh
-go get github.com/brymck/gke-site
-cd $GOPATH/src/github.com/brymck/gke-site
+mkdir -p $GOPATH/src/github.com/brymck
+git clone https://github.com/brymck/gke-site.git
+cd gke-site
 make
+```
+
+Or, if you're behind a corporate proxy and have your `http_proxy` and `https_proxy` environment variables set, correctly, change `make` to
+
+```sh
+make proxy
 ```
 
 ### With Istio
