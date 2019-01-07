@@ -9,6 +9,7 @@ install-postgresql:
 	helm status gke-site-psql >/dev/null || helm install --name gke-site-psql stable/postgresql
 
 inject-proxies:
+	python -c 'import yaml' >/dev/null 2>&1 || pip install pyyaml
 	python inject-proxies.py
 
 apply-istio:
