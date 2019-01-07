@@ -25,7 +25,7 @@ def start():
 
     add_SquareServiceServicer_to_server(service, server)
 
-    port = os.environ.get('PORT', '8080')
+    port = os.environ.get('PORT', '5000')
     logger.info(f'listening on port {port}')
     server.add_insecure_port(f'[::]:{port}')
     server.start()

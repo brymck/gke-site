@@ -13,7 +13,7 @@ spec:
       - name: server
         image: gcr.io/brymck/squareservice
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
@@ -26,4 +26,4 @@ spec:
   ports:
   - name: grpc
     port: 5000
-    targetPort: 8080
+    targetPort: 5000

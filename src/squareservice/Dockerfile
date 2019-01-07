@@ -31,5 +31,5 @@ RUN apk add --no-cache libstdc++
 COPY --from=builder /usr/local/bin/squareservice /usr/local/bin/squareservice
 COPY --from=builder /usr/local/lib/python3.7/ /usr/local/lib/python3.7/
 
-EXPOSE 8080
+EXPOSE 5000
 ENTRYPOINT ["/usr/local/bin/squareservice"]
