@@ -15,7 +15,8 @@ RUN ./gradlew --init-script env.gradle downloadRepos
 
 # Install distribution
 COPY . .
-RUN ./gradlew installDist
+RUN sed -i 's/https/http/' gradle/wrapper/gradle-wrapper.properties
+RUN ./gradlew --init-script env.gradle installDist
 
 FROM openjdk:8-alpine
 
