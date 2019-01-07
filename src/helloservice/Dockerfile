@@ -26,7 +26,7 @@ COPY --from=builder /etc/passwd /etc/passwd
 
 USER appuser
 
-# Expose service on port 3550
+# Expose container
 COPY --from=builder /bin/helloservice /bin/helloservice
 EXPOSE 3550
 ENTRYPOINT ["/bin/helloservice"]
