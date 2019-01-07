@@ -1,16 +1,25 @@
-FROM golang:1.11.2-alpine3.8 as serverbuilder
-RUN apk add --no-cache ca-certificates git curl
-RUN curl -L -s -o /go/bin/dep https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64
-RUN chmod +x /go/bin/dep
-ENV PROJECT github.com/brymck/gke-site/src/frontend/server
-WORKDIR /go/src/$PROJECT
+# Base build image
+FROM golang:alpine as serverbuilder
 
-# restore dependencies
-COPY server/Gopkg.* ./
-RUN dep ensure --vendor-only -v
-COPY server .
-RUN go install .
+# Install dependencies
+RUN apk update && apk add --no-cache ca-certificates git && update-ca-certificates
+WORKDIR /src
 
+# Use an uncredentialed user
+RUN adduser -D -g '' appuser
+
+# Force the Go compiler to use modules
+ENV GO111MODULE=on
+
+# Download Go library dependencies
+COPY server/go.mod server/go.sum ./
+RUN go mod download
+
+# Build
+COPY server/ .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/server
+
+# Build Node
 FROM node:8-alpine as uibuilder
 WORKDIR /usr/src/app
 COPY ui/package.json ui/yarn.lock ./
@@ -18,12 +27,16 @@ RUN yarn install
 COPY ui .
 RUN yarn build
 
-FROM alpine:3.8 as release
-RUN apk add --no-cache ca-certificates busybox-extras net-tools bind-tools
+# Base deploy image
+FROM scratch
+COPY --from=serverbuilder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=serverbuilder /etc/passwd /etc/passwd
+
+USER appuser
+
+# Expose container
 WORKDIR /frontend
-COPY --from=serverbuilder /go/bin/server ./server
+COPY --from=serverbuilder /bin/server ./server
 COPY --from=uibuilder /usr/src/app/build ./ui
-# COPY ./server/templates ./templates
-# COPY ./static ./static
 EXPOSE 8080
 ENTRYPOINT ["/frontend/server"]
