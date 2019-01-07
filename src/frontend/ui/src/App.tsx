@@ -6,26 +6,52 @@ interface Props {
 }
 
 interface State {
-  value: string
+  name: string
   greeting: string
+  number: string
+  squared: number
 }
 
 export default class App extends React.Component<Props, State> {
-  state: State = { value: '', greeting: '' };
+  state: State = {
+    name: '',
+    greeting: '',
+    number: '0',
+    squared: 0,
+  };
 
   constructor(props: Props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
   }
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    this.setState({ value });
-    axios.get(`/hello/${value}`)
-        .then(res => {
-          const greeting = res.data;
-          this.setState({ greeting: greeting.message });
-        });
+  handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const name = event.target.value;
+    this.setState({ name });
+    axios.get(`/hello/${name}`)
+      .then(res => {
+        const greeting = res.data;
+        this.setState({ greeting: greeting.message });
+      })
+      .catch(reason => {
+        console.error(reason);
+        this.setState({ greeting: '' });
+      });
+  }
+
+  handleNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const number = event.target.value;
+    this.setState({ number });
+    axios.get(`/square/${number}`)
+      .then(res => {
+        const response = res.data;
+        this.setState({ squared: response.number });
+      })
+      .catch(reason => {
+        console.error(reason);
+        this.setState({ squared: 0 })
+      });
   }
 
   render() {
@@ -37,11 +63,18 @@ export default class App extends React.Component<Props, State> {
           </p>
           <input
             autoFocus={true}
-            onChange={this.handleChange}
+            onChange={this.handleNameChange}
             type="text"
-            value={this.state.value}
+            value={this.state.name}
           />
           <span>{this.state.greeting}</span>
+          <input
+            autoFocus={true}
+            onChange={this.handleNumberChange}
+            type="text"
+            value={this.state.number}
+          />
+          <span>{this.state.squared}</span>
         </header>
       </div>
     );
