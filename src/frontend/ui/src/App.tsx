@@ -10,6 +10,7 @@ interface State {
   greeting: string
   number: string
   squared: number
+  count: number
 }
 
 export default class App extends React.Component<Props, State> {
@@ -18,6 +19,7 @@ export default class App extends React.Component<Props, State> {
     greeting: '',
     number: '0',
     squared: 0,
+    count: 0,
   };
 
   constructor(props: Props) {
@@ -54,6 +56,17 @@ export default class App extends React.Component<Props, State> {
       });
   }
 
+  handleButtonClick(event: React.MouseEvent<HTMLInputElement>) {
+    axios.get('/count/')
+      .then(res => {
+        this.setState({ count: 1 })
+      })
+      .catch(reason => {
+        console.error(reason);
+        this.setState({ count: 0 })
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -75,6 +88,12 @@ export default class App extends React.Component<Props, State> {
             value={this.state.number}
           />
           <span>{this.state.squared}</span>
+          <input
+            onClick={this.handleButtonClick}
+            type="button"
+            value="Click me"
+          />
+          <span>{this.state.count}</span>
         </header>
       </div>
     );

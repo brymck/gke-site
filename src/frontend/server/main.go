@@ -30,6 +30,8 @@ var (
 type ctxKeySessionID struct{}
 
 type frontendServer struct {
+	countSvcAddr string
+	countSvcConn *grpc.ClientConn
 	helloSvcAddr string
 	helloSvcConn *grpc.ClientConn
 	squareSvcAddr string
@@ -58,6 +60,7 @@ func main() {
 	}
 	addr := os.Getenv("LISTEN_ADDR")
 	svc := new(frontendServer)
+	mustMapEnv(&svc.countSvcAddr, "COUNT_SERVICE_ADDR")
 	mustMapEnv(&svc.helloSvcAddr, "HELLO_SERVICE_ADDR")
 	mustMapEnv(&svc.squareSvcAddr, "SQUARE_SERVICE_ADDR")
 
@@ -65,6 +68,7 @@ func main() {
 	mustConnGRPC(ctx, &svc.squareSvcConn, svc.squareSvcAddr)
 
 	r := mux.NewRouter()
+	r.HandleFunc("/count", svc.countHandler).Methods("GET")
 	r.HandleFunc("/hello/{name}", svc.helloHandler).Methods("GET")
 	r.HandleFunc("/square/{number}", svc.squareHandler).Methods("GET")
 	r.HandleFunc("/robots.txt", func(w http.ResponseWriter, _ *http.Request) {

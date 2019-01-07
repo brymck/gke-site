@@ -10,6 +10,21 @@ import (
 	"strconv"
 )
 
+func (fe *frontendServer) countHandler(w http.ResponseWriter, r *http.Request) {
+	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
+
+	resp, err := fe.count(r.Context())
+	if err != nil {
+		renderHTTPError(log, r, w, errors.Wrap(err, "failed to count"), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		log.Error(err)
+	}
+}
+
 func (fe *frontendServer) helloHandler(w http.ResponseWriter, r *http.Request) {
 	log := r.Context().Value(ctxKeyLog{}).(logrus.FieldLogger)
 	vars := mux.Vars(r)
