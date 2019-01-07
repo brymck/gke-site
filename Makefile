@@ -1,15 +1,10 @@
 all: init dev
 
-proxy: init dev-proxy
-
 init: install-postgresql
 
 dev:
-	skaffold dev
-
-dev-proxy:
-	python add-proxies.py
-	skaffold dev --filename skaffold-with-proxies.yaml
+	python inject-proxies.py
+	skaffold dev --filename skaffold.dev.yaml
 
 install-postgresql:
 	helm status gke-site-psql >/dev/null || helm install --name gke-site-psql stable/postgresql
@@ -37,4 +32,4 @@ proto:
 	cd src/frontend/server && ./genproto.sh
 	cd src/helloservice && ./genproto.sh
 
-.PHONY: all proxy init dev dev-proxy install-postgresql apply-istio delete-istio show-grafana show-dashboard proto
+.PHONY: all init dev install-postgresql apply-istio delete-istio show-grafana show-dashboard proto

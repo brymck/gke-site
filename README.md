@@ -14,16 +14,9 @@ Usage
 -----
 
 ```sh
-mkdir -p $GOPATH/src/github.com/brymck
 git clone https://github.com/brymck/gke-site.git
 cd gke-site
 make
-```
-
-Or, if you're behind a corporate proxy and have your `http_proxy` and `https_proxy` environment variables set, correctly, change `make` to
-
-```sh
-make proxy
 ```
 
 ### With Istio
@@ -40,7 +33,7 @@ Make commands
 
 * `make` - run `init` then `dev`
 * `make init` - run any required one-time commands
-* `make dev` - run via Skaffold
+* `make dev` - inject proxies if necessary and run via Skaffold
 * `make install-postgresql` - install PostgreSQL via Helm
 * `make apply-istio` - apply Istio manifests (requires Istio)
 * `make delete-istio` - delete Istio manifests
