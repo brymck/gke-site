@@ -4,6 +4,8 @@ build:
   artifacts:
     - image: gcr.io/brymck/frontend
       context: src/frontend
+    - image: gcr.io/brymck/countservice
+      context: src/countservice
     - image: gcr.io/brymck/helloservice
       context: src/helloservice
     - image: gcr.io/brymck/squareservice

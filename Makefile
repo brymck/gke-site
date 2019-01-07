@@ -33,6 +33,7 @@ show-dashboard:
 
 generate-protobuf:
 	cd src/frontend/server && ./genproto.sh
+	cd src/countservice && ./genproto.sh
 	cd src/helloservice && ./genproto.sh
 	cd src/squareservice && ./genproto.sh
 
