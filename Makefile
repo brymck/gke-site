@@ -2,12 +2,14 @@ all: init dev
 
 init: install-postgresql
 
-dev:
-	python inject-proxies.py
+dev: inject-proxies
 	skaffold dev --filename skaffold.dev.yaml
 
 install-postgresql:
 	helm status gke-site-psql >/dev/null || helm install --name gke-site-psql stable/postgresql
+
+inject-proxies:
+	python inject-proxies.py
 
 apply-istio:
 	kubectl label namespace default istio-injection=enabled
@@ -28,8 +30,9 @@ show-dashboard:
 	(sleep 1s; open 'http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/service?namespace=default') &
 	kubectl proxy
 
-proto:
+generate-protobuf:
 	cd src/frontend/server && ./genproto.sh
 	cd src/helloservice && ./genproto.sh
+	cd src/squareservice && ./genproto.sh
 
 .PHONY: all init dev install-postgresql apply-istio delete-istio show-grafana show-dashboard proto

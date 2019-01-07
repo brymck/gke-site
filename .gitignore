@@ -1,10 +1,11 @@
-bin/
-pkg/
-.DS_Store
 *.pyc
 *.swp
 *~
-.vscode/
-.vs/
+.DS_Store
 .idea
+.vs/
+.vscode/
+bin/
+pkg/
 skaffold.dev.yaml
+venv/

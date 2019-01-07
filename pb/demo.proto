@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package gkesite;
 
-// -----------------Cart service-----------------
-
 service HelloService {
     rpc GetGreeting(GreetingRequest) returns (Greeting) {}
 }
@@ -14,4 +12,16 @@ message GreetingRequest {
 
 message Greeting {
     string message = 1;
+}
+
+service SquareService {
+    rpc GetSquare(SquareRequest) returns (SquareResponse) {}
+}
+
+message SquareRequest {
+    float number = 1;
+}
+
+message SquareResponse {
+    float number = 1;
 }
