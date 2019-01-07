@@ -12,12 +12,16 @@ We then save that file to skaffold.dev.yaml.
 
 If they don't exist, we just directly copy skaffold.yaml to skaffold.dev.yaml.
 """
+
 import os
 import shutil
+from urllib.parse import urlparse
+
 import yaml
 
 base_yaml = 'skaffold.yaml'
 dev_yaml = 'skaffold.dev.yaml'
+
 
 def get_proxies():
     """Determine proxies based on environment variables."""
@@ -28,6 +32,7 @@ def get_proxies():
         if var_name.upper() in os.environ:
             proxies[var_name.upper()] = os.environ[var_name]
     return proxies
+
 
 def apply_proxies(proxies):
     """Read in skaffold.yaml, apply proxies as Docker --build-args, save as skaffold.dev.yaml."""
@@ -44,6 +49,7 @@ def apply_proxies(proxies):
     stream = open(dev_yaml, 'w')
     yaml.dump(doc, stream, default_flow_style=False)
 
+
 def main():
     """Entrypoint."""
     proxies = get_proxies()
@@ -51,5 +57,6 @@ def main():
         apply_proxies(proxies)
     else:
         shutil.copyfile(base_yaml, dev_yaml)
+
 
 main()

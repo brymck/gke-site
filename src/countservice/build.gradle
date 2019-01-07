@@ -11,6 +11,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath files('gradle/gradle-trust-all.jar')
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.7'
     }
@@ -129,3 +130,25 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
+
+task setHttpProxyFromEnv {
+    def keyToSchemeMap = ['HTTP_PROXY': 'http', 'HTTPS_PROXY': 'https']
+    def env = System.getenv()
+    keyToSchemeMap.each { key, scheme ->
+        if (key in env) {
+            def url = env[key].toURL()
+            System.setProperty("${scheme}.proxyHost", url.host.toString())
+            System.setProperty("${scheme}.proxyPort", url.port.toString())
+            if (url.userInfo) {
+                def (user, password) = url.userInfo.split(':')
+                System.setProperty("${scheme}.proxyUser", user.toString())
+                if (password) {
+                    System.setProperty("${scheme}.proxyPort", password.toString())
+                }
+            }
+        }
+
+    }
+}
+
+build.dependsOn setHttpProxyFromEnv

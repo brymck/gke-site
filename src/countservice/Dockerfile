@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY build.gradle gradlew ./
 COPY gradle gradle
+RUN sed -i 's/https/http/' gradle/wrapper/gradle-wrapper.properties
 RUN ./gradlew downloadRepos
 
 COPY . .

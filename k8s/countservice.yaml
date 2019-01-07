@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: countservice
+spec:
+  template:
+    metadata:
+      labels:
+        app: countservice
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: server
+        image: gcr.io/brymck/countservice
+        ports:
+        - containerPort: 9555
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: countservice
+spec:
+  type: ClusterIP
+  selector:
+    app: countservice
+  ports:
+  - name: grpc
+    port: 9555
+    targetPort: 9555
