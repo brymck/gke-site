@@ -15,7 +15,6 @@ If they don't exist, we just directly copy skaffold.yaml to skaffold.dev.yaml.
 
 import os
 import shutil
-from urllib.parse import urlparse
 
 import yaml
 
