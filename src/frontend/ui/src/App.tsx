@@ -26,6 +26,7 @@ export default class App extends React.Component<Props, State> {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -57,7 +58,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   handleButtonClick(event: React.MouseEvent<HTMLInputElement>) {
-    axios.get('/count/')
+    axios.get('/count')
       .then(res => {
         this.setState({ count: 1 })
       })

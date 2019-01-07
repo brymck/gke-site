@@ -64,6 +64,7 @@ func main() {
 	mustMapEnv(&svc.helloSvcAddr, "HELLO_SERVICE_ADDR")
 	mustMapEnv(&svc.squareSvcAddr, "SQUARE_SERVICE_ADDR")
 
+	mustConnGRPC(ctx, &svc.countSvcConn, svc.countSvcAddr)
 	mustConnGRPC(ctx, &svc.helloSvcConn, svc.helloSvcAddr)
 	mustConnGRPC(ctx, &svc.squareSvcConn, svc.squareSvcAddr)
 

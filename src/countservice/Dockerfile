@@ -26,4 +26,4 @@ WORKDIR /app
 COPY --from=builder /app .
 
 EXPOSE 9555
-ENTRYPOINT ["/app/build/install/com/brymck/bin/CountService"]
+ENTRYPOINT ["/app/build/install/countservice/bin/CountService"]
