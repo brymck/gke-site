@@ -8,7 +8,7 @@ from .genproto.demo_pb2 import SquareRequest, SquareResponse
 from .genproto.demo_pb2_grpc import SquareServiceServicer, add_SquareServiceServicer_to_server
 from .logger import get_json_logger
 
-logger = get_json_logger('emailservice-server')
+logger = get_json_logger('squareservice-server')
 
 
 class SquareService(SquareServiceServicer):

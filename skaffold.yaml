@@ -6,6 +6,8 @@ build:
       context: src/frontend
     - image: gcr.io/brymck/helloservice
       context: src/helloservice
+    - image: gcr.io/brymck/squareservice
+      context: src/squareservice
   tagPolicy:
     gitCommit: {}
 deploy:
