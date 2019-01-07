@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='gkesite',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\ndemo.proto\x12\x07gkesite\"\x1f\n\x0fGreetingRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1b\n\x08Greeting\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x1f\n\rSquareRequest\x12\x0e\n\x06number\x18\x01 \x01(\x02\" \n\x0eSquareResponse\x12\x0e\n\x06number\x18\x01 \x01(\x02\x32L\n\x0cHelloService\x12<\n\x0bGetGreeting\x12\x18.gkesite.GreetingRequest\x1a\x11.gkesite.Greeting\"\x00\x32O\n\rSquareService\x12>\n\tGetSquare\x12\x16.gkesite.SquareRequest\x1a\x17.gkesite.SquareResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\ndemo.proto\x12\x07gkesite\"\x1f\n\x0fGreetingRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1b\n\x08Greeting\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x1f\n\rSquareRequest\x12\x0e\n\x06number\x18\x01 \x01(\x02\" \n\x0eSquareResponse\x12\x0e\n\x06number\x18\x01 \x01(\x02\"\x0e\n\x0c\x43ountRequest\"\x1e\n\rCountResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x32L\n\x0cHelloService\x12<\n\x0bGetGreeting\x12\x18.gkesite.GreetingRequest\x1a\x11.gkesite.Greeting\"\x00\x32O\n\rSquareService\x12>\n\tGetSquare\x12\x16.gkesite.SquareRequest\x1a\x17.gkesite.SquareResponse\"\x00\x32K\n\x0c\x43ountService\x12;\n\x08GetCount\x12\x15.gkesite.CountRequest\x1a\x16.gkesite.CountResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -148,10 +148,67 @@ _SQUARERESPONSE = _descriptor.Descriptor(
   serialized_end=150,
 )
 
+
+_COUNTREQUEST = _descriptor.Descriptor(
+  name='CountRequest',
+  full_name='gkesite.CountRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=152,
+  serialized_end=166,
+)
+
+
+_COUNTRESPONSE = _descriptor.Descriptor(
+  name='CountResponse',
+  full_name='gkesite.CountResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='count', full_name='gkesite.CountResponse.count', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=168,
+  serialized_end=198,
+)
+
 DESCRIPTOR.message_types_by_name['GreetingRequest'] = _GREETINGREQUEST
 DESCRIPTOR.message_types_by_name['Greeting'] = _GREETING
 DESCRIPTOR.message_types_by_name['SquareRequest'] = _SQUAREREQUEST
 DESCRIPTOR.message_types_by_name['SquareResponse'] = _SQUARERESPONSE
+DESCRIPTOR.message_types_by_name['CountRequest'] = _COUNTREQUEST
+DESCRIPTOR.message_types_by_name['CountResponse'] = _COUNTRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GreetingRequest = _reflection.GeneratedProtocolMessageType('GreetingRequest', (_message.Message,), dict(
@@ -182,6 +239,20 @@ SquareResponse = _reflection.GeneratedProtocolMessageType('SquareResponse', (_me
   ))
 _sym_db.RegisterMessage(SquareResponse)
 
+CountRequest = _reflection.GeneratedProtocolMessageType('CountRequest', (_message.Message,), dict(
+  DESCRIPTOR = _COUNTREQUEST,
+  __module__ = 'demo_pb2'
+  # @@protoc_insertion_point(class_scope:gkesite.CountRequest)
+  ))
+_sym_db.RegisterMessage(CountRequest)
+
+CountResponse = _reflection.GeneratedProtocolMessageType('CountResponse', (_message.Message,), dict(
+  DESCRIPTOR = _COUNTRESPONSE,
+  __module__ = 'demo_pb2'
+  # @@protoc_insertion_point(class_scope:gkesite.CountResponse)
+  ))
+_sym_db.RegisterMessage(CountResponse)
+
 
 
 _HELLOSERVICE = _descriptor.ServiceDescriptor(
@@ -190,8 +261,8 @@ _HELLOSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=152,
-  serialized_end=228,
+  serialized_start=200,
+  serialized_end=276,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetGreeting',
@@ -214,8 +285,8 @@ _SQUARESERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=230,
-  serialized_end=309,
+  serialized_start=278,
+  serialized_end=357,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetSquare',
@@ -230,5 +301,29 @@ _SQUARESERVICE = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_SQUARESERVICE)
 
 DESCRIPTOR.services_by_name['SquareService'] = _SQUARESERVICE
+
+
+_COUNTSERVICE = _descriptor.ServiceDescriptor(
+  name='CountService',
+  full_name='gkesite.CountService',
+  file=DESCRIPTOR,
+  index=2,
+  serialized_options=None,
+  serialized_start=359,
+  serialized_end=434,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='GetCount',
+    full_name='gkesite.CountService.GetCount',
+    index=0,
+    containing_service=None,
+    input_type=_COUNTREQUEST,
+    output_type=_COUNTRESPONSE,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_COUNTSERVICE)
+
+DESCRIPTOR.services_by_name['CountService'] = _COUNTSERVICE
 
 # @@protoc_insertion_point(module_scope)

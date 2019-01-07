@@ -86,3 +86,45 @@ def add_SquareServiceServicer_to_server(servicer, server):
   generic_handler = grpc.method_handlers_generic_handler(
       'gkesite.SquareService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
+
+
+class CountServiceStub(object):
+  # missing associated documentation comment in .proto file
+  pass
+
+  def __init__(self, channel):
+    """Constructor.
+
+    Args:
+      channel: A grpc.Channel.
+    """
+    self.GetCount = channel.unary_unary(
+        '/gkesite.CountService/GetCount',
+        request_serializer=demo__pb2.CountRequest.SerializeToString,
+        response_deserializer=demo__pb2.CountResponse.FromString,
+        )
+
+
+class CountServiceServicer(object):
+  # missing associated documentation comment in .proto file
+  pass
+
+  def GetCount(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+
+def add_CountServiceServicer_to_server(servicer, server):
+  rpc_method_handlers = {
+      'GetCount': grpc.unary_unary_rpc_method_handler(
+          servicer.GetCount,
+          request_deserializer=demo__pb2.CountRequest.FromString,
+          response_serializer=demo__pb2.CountResponse.SerializeToString,
+      ),
+  }
+  generic_handler = grpc.method_handlers_generic_handler(
+      'gkesite.CountService', rpc_method_handlers)
+  server.add_generic_rpc_handlers((generic_handler,))
