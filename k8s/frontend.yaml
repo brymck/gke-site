@@ -16,6 +16,8 @@ spec:
           env:
             - name: HELLO_SERVICE_ADDR
               value: "helloservice:3550"
+            - name: SQUARE_SERVICE_ADDR
+              value: "squareservice:5000"
 ---
 apiVersion: v1
 kind: Service

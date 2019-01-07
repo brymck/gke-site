@@ -32,6 +32,8 @@ type ctxKeySessionID struct{}
 type frontendServer struct {
 	helloSvcAddr string
 	helloSvcConn *grpc.ClientConn
+	squareSvcAddr string
+	squareSvcConn *grpc.ClientConn
 }
 
 func init() {
@@ -57,11 +59,14 @@ func main() {
 	addr := os.Getenv("LISTEN_ADDR")
 	svc := new(frontendServer)
 	mustMapEnv(&svc.helloSvcAddr, "HELLO_SERVICE_ADDR")
+	mustMapEnv(&svc.squareSvcAddr, "SQUARE_SERVICE_ADDR")
 
 	mustConnGRPC(ctx, &svc.helloSvcConn, svc.helloSvcAddr)
+	mustConnGRPC(ctx, &svc.squareSvcConn, svc.squareSvcAddr)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/hello/{name}", svc.helloHandler).Methods("GET")
+	r.HandleFunc("/square/{number}", svc.squareHandler).Methods("GET")
 	r.HandleFunc("/robots.txt", func(w http.ResponseWriter, _ *http.Request) {
 		_, err := fmt.Fprint(w, "User-agent: *\nDisallow: /")
 		if err != nil {
