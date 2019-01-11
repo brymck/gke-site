@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/codegangsta/negroni"
 	"net/http"
 	"os"
 	"time"
@@ -36,6 +38,10 @@ type frontendServer struct {
 	helloSvcConn *grpc.ClientConn
 	squareSvcAddr string
 	squareSvcConn *grpc.ClientConn
+}
+
+type Response struct {
+	Message string `json:"message"`
 }
 
 func init() {
@@ -78,6 +84,15 @@ func main() {
 			log.Error(err)
 		}
 	})
+
+	jwtMiddleware := getJWTMiddleware()
+	r.Handle("/api/private", negroni.New(
+		negroni.HandlerFunc(jwtMiddleware.HandlerWithNext),
+		negroni.Wrap(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			message := "Hello from a private endpoint!"
+			responseJSON(message, w, http.StatusOK)
+		}))))
+
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./ui/")))
 
 	var handler http.Handler = r
@@ -87,6 +102,20 @@ func main() {
 
 	log.Infof("starting server on " + addr + ":" + srvPort)
 	log.Fatal(http.ListenAndServe(addr+":"+srvPort, handler))
+}
+
+func responseJSON(message string, w http.ResponseWriter, statusCode int) {
+	response := Response{message}
+
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	w.Write(jsonResponse)
 }
 
 func mustMapEnv(target *string, envKey string) {
