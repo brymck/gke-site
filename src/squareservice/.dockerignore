@@ -114,6 +114,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Protobuf
+genproto.sh
+
+# Docker
+Dockerfile
+
 # JetBrains
 .idea/
 
@@ -121,3 +127,7 @@ dmypy.json
 *~
 *.swp
 *.swo
+
+# Git
+.git/
+.gitignore
