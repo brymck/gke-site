@@ -48,8 +48,8 @@ export default class App extends React.Component<Props, State> {
     this.setState({ number });
     axios.get(`/square/${number}`)
       .then(res => {
-        const response = res.data;
-        this.setState({ squared: response.number });
+        const { number } = res.data;
+        this.setState({ squared: number });
       })
       .catch(reason => {
         console.error(reason);
