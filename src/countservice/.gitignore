@@ -32,3 +32,8 @@ build/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
+
+# Vim
+*~
+*.swp
+*.swo
