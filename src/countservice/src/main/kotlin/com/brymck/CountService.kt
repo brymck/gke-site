@@ -69,6 +69,7 @@ class CountService {
         override fun getCount(request: CountRequest, responseObserver: StreamObserver<CountResponse>) {
             try {
                 count++
+                logger.info("Increment count to $count")
                 val reply = CountResponse.newBuilder().setCount(count).build()
                 responseObserver.onNext(reply)
                 responseObserver.onCompleted()

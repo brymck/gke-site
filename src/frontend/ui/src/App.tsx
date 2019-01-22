@@ -53,19 +53,19 @@ export default class App extends React.Component<Props, State> {
       })
       .catch(reason => {
         console.error(reason);
-        this.setState({ squared: 0 })
+        this.setState({ squared: 0 });
       });
   }
 
   handleButtonClick(event: React.MouseEvent<HTMLInputElement>) {
     axios.get('/count')
       .then(res => {
-        this.setState({ count: 1 })
+        const { count } = res.data;
+        this.setState({ count });
       })
       .catch(reason => {
         console.error(reason);
-        this.setState({ count: 0 })
-      })
+      });
   }
 
   render() {
