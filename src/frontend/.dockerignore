@@ -2,3 +2,8 @@
 server/vendor/
 ui/build/
 ui/node_modules/
+
+# Vim
+*~
+*.swp
+*.swo
