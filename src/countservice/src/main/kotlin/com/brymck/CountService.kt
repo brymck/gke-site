@@ -64,9 +64,12 @@ class CountService {
     }
 
     internal class CountServiceImpl : CountServiceImplBase() {
+        private var count = 0
+
         override fun getCount(request: CountRequest, responseObserver: StreamObserver<CountResponse>) {
             try {
-                val reply = CountResponse.newBuilder().setCount(1).build()
+                count++
+                val reply = CountResponse.newBuilder().setCount(count).build()
                 responseObserver.onNext(reply)
                 responseObserver.onCompleted()
             } catch (e: StatusRuntimeException) {
